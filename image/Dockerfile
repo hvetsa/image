@@ -1,0 +1,18 @@
+FROM ubuntu:jammy-20220801
+
+# Update cache
+apt-get update
+
+# Update packages
+apt-get upgrade -y
+
+# install TZdata without prompt
+DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
+
+# install packages
+apt-get install -y \
+    build-essential procps curl file \
+    git gcc sudo jq libglib2.0-dev zip vim \
+    shellcheck ldap-utils \
+    bash-completion wget \
+    pip
