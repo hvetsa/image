@@ -1,0 +1,5 @@
+pandas
+robin_stocks
+yfinance
+requests
+pyaml
