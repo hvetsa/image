@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+# Git Setup
+  git config --global user.email "hvetsa@yahoo.com"
+  git config --global user.name "Hari Vetsa"
+
+  ln -s /Documents/secure_zone/.ssh/id_rsa /root/.ssh/id_rsa

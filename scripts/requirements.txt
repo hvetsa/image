@@ -1,5 +1,8 @@
+GitPython
 pandas
-robin_stocks
-yfinance
+pre-commit
 requests
+robin_stocks
 pyaml
+yfinance
+yq
