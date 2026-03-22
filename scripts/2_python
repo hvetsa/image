@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
-d=$(dirname ${0})
-pip install -r ${d}/requirements.txt
+d=$(dirname "${0}")
+pip install --no-cache-dir --upgrade -r "${d}/requirements.txt"
