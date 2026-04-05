@@ -1,0 +1,37 @@
+repos:
+  # Pre-commit framework built-in hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  # Dockerfile linting
+  - repo: local
+    hooks:
+      - id: hadolint-docker
+        name: Lint Dockerfile
+        entry: bash -c 'command -v hadolint > /dev/null && hadolint Dockerfile || echo "hadolint not installed, skipping"'
+        language: system
+        files: Dockerfile
+        stages:
+          - commit
+
+  # Detect secrets in the codebase
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect secrets
+        entry: detect-secrets scan
+        language: python
+        types:
+          - text
+        exclude: |
+          (?x)^(
+            \.git/|
+            \.venv/|
+            node_modules/|
+            build.log|
+            VERSION
+          )

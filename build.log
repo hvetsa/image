@@ -1,0 +1,77 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 2B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 4.80kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:latest
+#3 DONE 0.7s
+
+#4 [ 1/13] FROM docker.io/library/ubuntu:latest@sha256:186072bba1b2f436cbb91ef2567abca677337cfc786c86e107d25b7072feef0c
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 38B done
+#5 DONE 0.0s
+
+#6 [ 3/13] RUN add-apt-repository ppa:deadsnakes/ppa -y &&     apt-get update &&     apt-get install -y         python3.13         python3.13-dev         python3.13-venv     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 4/13] RUN update-alternatives --install /usr/bin/python  python  /usr/bin/python3.13 1 &&     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+#7 CACHED
+
+#8 [ 5/13] RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.13 &&     python3.13 -m pip install --upgrade pip setuptools wheel
+#8 CACHED
+
+#9 [ 2/13] RUN apt-get update && apt-get install -y     curl     wget     git     gnupg     ca-certificates     lsb-release     software-properties-common     apt-transport-https     build-essential     gcc     g++     make     cmake     pkg-config     libssl-dev     libffi-dev     libxml2-dev     libxslt1-dev     zlib1g-dev     libbz2-dev     libreadline-dev     libsqlite3-dev     liblzma-dev     libncurses-dev     tk-dev     uuid-dev     unzip     zip     jq     vim     htop     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [ 6/13] COPY requirements.txt /tmp/requirements.txt
+#10 CACHED
+
+#11 [ 7/13] RUN python3.13 -m pip install --no-cache-dir -r /tmp/requirements.txt
+#11 0.653 Collecting virtualenv==20.26.3 (from -r /tmp/requirements.txt (line 2))
+#11 0.768   Downloading virtualenv-20.26.3-py3-none-any.whl.metadata (4.5 kB)
+#11 0.840 Collecting pipenv==2024.1.0 (from -r /tmp/requirements.txt (line 3))
+#11 0.864   Downloading pipenv-2024.1.0-py3-none-any.whl.metadata (19 kB)
+#11 0.915 Collecting poetry==1.8.3 (from -r /tmp/requirements.txt (line 4))
+#11 0.984   Downloading poetry-1.8.3-py3-none-any.whl.metadata (6.8 kB)
+#11 1.031 Collecting tox==4.15.0 (from -r /tmp/requirements.txt (line 7))
+#11 1.050   Downloading tox-4.15.0-py3-none-any.whl.metadata (5.0 kB)
+#11 1.101 Collecting pytest==8.3.2 (from -r /tmp/requirements.txt (line 8))
+#11 1.124   Downloading pytest-8.3.2-py3-none-any.whl.metadata (7.5 kB)
+#11 1.155 Collecting pytest-cov==5.0.0 (from -r /tmp/requirements.txt (line 9))
+#11 1.181   Downloading pytest_cov-5.0.0-py3-none-any.whl.metadata (27 kB)
+#11 1.250 Collecting black==24.8.0 (from -r /tmp/requirements.txt (line 12))
+#11 1.276   Downloading black-24.8.0-py3-none-any.whl.metadata (78 kB)
+#11 1.359 Collecting isort==5.13.2 (from -r /tmp/requirements.txt (line 13))
+#11 1.380   Downloading isort-5.13.2-py3-none-any.whl.metadata (12 kB)
+#11 1.414 Collecting flake8==7.1.1 (from -r /tmp/requirements.txt (line 14))
+#11 1.446   Downloading flake8-7.1.1-py2.py3-none-any.whl.metadata (3.8 kB)
+#11 1.548 Collecting mypy==1.11.2 (from -r /tmp/requirements.txt (line 15))
+#11 1.568   Downloading mypy-1.11.2-py3-none-any.whl.metadata (1.9 kB)
+#11 1.613 Collecting pylint==3.2.7 (from -r /tmp/requirements.txt (line 16))
+#11 1.643   Downloading pylint-3.2.7-py3-none-any.whl.metadata (12 kB)
+#11 1.692 Collecting ipython==8.26.0 (from -r /tmp/requirements.txt (line 19))
+#11 1.713   Downloading ipython-8.26.0-py3-none-any.whl.metadata (5.0 kB)
+#11 1.735 Collecting jupyter==1.0.0 (from -r /tmp/requirements.txt (line 20))
+#11 1.764   Downloading jupyter-1.0.0-py2.py3-none-any.whl.metadata (995 bytes)
+#11 1.811 Collecting notebook==7.2.2 (from -r /tmp/requirements.txt (line 21))
+#11 1.831   Downloading notebook-7.2.2-py3-none-any.whl.metadata (10 kB)
+#11 1.904 Collecting jupyterlab==4.2.5 (from -r /tmp/requirements.txt (line 22))
+#11 1.925   Downloading jupyterlab-4.2.5-py3-none-any.whl.metadata (16 kB)
+#11 2.088 Collecting numpy==2.0.1 (from -r /tmp/requirements.txt (line 25))
+#11 2.117   Downloading numpy-2.0.1.tar.gz (18.9 MB)
+#11 3.428      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.9/18.9 MB 14.5 MB/s  0:00:01
+#11 4.633   Installing build dependencies: started
+#11 6.500   Installing build dependencies: finished with status 'done'
+#11 6.500   Getting requirements to build wheel: started
+#11 6.626   Getting requirements to build wheel: finished with status 'done'
+#11 6.627   Installing backend dependencies: started
+#11 7.339   Installing backend dependencies: finished with status 'done'
+#11 7.340   Preparing metadata (pyproject.toml): started
+#11 67.60   Preparing metadata (pyproject.toml): still running...

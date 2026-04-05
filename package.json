@@ -1,0 +1,17 @@
+{
+  "name": "claude-image-global",
+  "private": true,
+  "description": "Global npm packages installed in the Docker image",
+  "dependencies": {
+    "npm": "latest",
+    "yarn": "latest",
+    "pnpm": "latest",
+    "typescript": "latest",
+    "ts-node": "latest",
+    "eslint": "latest",
+    "prettier": "latest",
+    "@anthropic-ai/claude-code": "latest",
+    "@github/copilot": "latest",
+    "@google/gemini-cli": "latest"
+  }
+}
