@@ -18,6 +18,7 @@ libglib2.0-dev
 liblzma-dev
 libncurses-dev
 libreadline-dev
+libsecret-1-0
 libsqlite3-dev
 libssl-dev
 libxml2-dev
@@ -29,6 +30,7 @@ procps
 python3-pip
 shellcheck
 software-properties-common
+ssh
 sudo
 tk-dev
 unzip
