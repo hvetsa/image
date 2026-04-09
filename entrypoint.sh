@@ -41,6 +41,19 @@ fi
 # Make all directories safe for git operations
 git config --global --add safe.directory '*'
 
+# Link SSH Files to Home Directory (if not already linked)
+if [[ ! -L $HOME/.ssh/id_rsa && -f /root/.ssh/id_rsa ]]; then
+    mkdir -p $HOME/.ssh
+    ln -s /Users/hvetsa/.ssh/id_rsa $HOME/.ssh/id_rsa
+fi
+
+# Restore sessions for AI tools (if session files are available in secure zone)
+for ai in gemini claude copilot; do
+    (cd $HOME/ && rm -rf .${ai} && tar xf /Users/hvetsa/Documents/DockerSubSystem/secure_zone/${ai}session.tar)
+done
+
+
+
 # ─── Execute Command ────────────────────────────────────────────────────────
 # Execute the provided command (default to bash)
 exec "$@"
