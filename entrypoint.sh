@@ -42,10 +42,8 @@ fi
 git config --global --add safe.directory '*'
 
 # Link SSH Files to Home Directory (if not already linked)
-if [[ ! -L $HOME/.ssh/id_rsa && -f /root/.ssh/id_rsa ]]; then
-    mkdir -p $HOME/.ssh
-    ln -s /Users/hvetsa/.ssh/id_rsa $HOME/.ssh/id_rsa
-fi
+mkdir -p $HOME/.ssh
+ln -s /Users/hvetsa/.ssh/id_rsa $HOME/.ssh/id_rsa
 
 # Restore sessions for AI tools (if session files are available in secure zone)
 for ai in gemini claude copilot; do
