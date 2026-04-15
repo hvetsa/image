@@ -91,6 +91,14 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | b
 # Persist nvm/node/npm on PATH for all subsequent RUN commands and at runtime
 ENV PATH="$NVM_DIR/versions/node/$(ls $NVM_DIR/versions/node | sort -V | tail -1)/bin:$PATH"
 
+# ─── cloudflared install ────────────────────────────
+RUN mkdir -p --mode=0755 /usr/share/keyrings && \
+    curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | \
+    tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null && \
+    echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main" | \
+    tee /etc/apt/sources.list.d/cloudflared.list && \
+    apt-get update && apt-get install -y cloudflared
+
 # ─── Shell environment ────────────────────────────────────────────────────────
 RUN printf '\n# nvm\nexport NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"\n[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"\n' \
     >> /root/.bashrc

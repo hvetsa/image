@@ -15,7 +15,7 @@ repos:
         language: system
         files: Dockerfile
         stages:
-          - commit
+          - pre-commit
 
   # Detect secrets in the codebase
   - repo: https://github.com/Yelp/detect-secrets
