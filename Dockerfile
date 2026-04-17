@@ -99,6 +99,13 @@ RUN mkdir -p --mode=0755 /usr/share/keyrings && \
     tee /etc/apt/sources.list.d/cloudflared.list && \
     apt-get update && apt-get install -y cloudflared
 
+# ─── openshift client install ────────────────────────────
+ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux-arm64.tar.gz \
+      -o /tmp/oc.tar.gz \
+ && tar -xzf /tmp/oc.tar.gz -C /usr/local/bin oc kubectl \
+ && chmod +x /usr/local/bin/oc /usr/local/bin/kubectl \
+ && rm /tmp/oc.tar.gz
+
 # ─── Shell environment ────────────────────────────────────────────────────────
 RUN printf '\n# nvm\nexport NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"\n[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"\n' \
     >> /root/.bashrc
