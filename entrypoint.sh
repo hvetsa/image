@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -u
 
 # ─── SSH Key Setup ──────────────────────────────────────────────────────────
 # Copy SSH private key from mounted secure zone (if available)
@@ -47,11 +47,14 @@ ln -s /Users/hvetsa/.ssh/id_rsa $HOME/.ssh/id_rsa
 
 # Restore sessions for AI tools (if session files are available in secure zone)
 for ai in gemini claude copilot; do
-    (cd $HOME/ && rm -rf .${ai} && tar xf /Users/hvetsa/Documents/DockerSubSystem/secure_zone/${ai}session.tar)
+    if [[ -f "/Users/hvetsa/Documents/DockerSubSystem/secure_zone/${ai}session.tar" ]]; then
+        echo "Restoring session for $ai from secure zone..."
+        (cd $HOME/ && rm -rf .${ai} && tar xf /Users/hvetsa/Documents/DockerSubSystem/secure_zone/${ai}session.tar)
+    fi
 done
 
 
 
 # ─── Execute Command ────────────────────────────────────────────────────────
 # Execute the provided command (default to bash)
-exec "$@"
+exec "${@:-/bin/bash}"

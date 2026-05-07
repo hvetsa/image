@@ -90,10 +90,15 @@ RUN_FLAGS=(
   --name "$CONTAINER_NAME"
   -v "$WORKDIR:/workspace"
   -w /workspace
-  -d  # Always run detached first for copying
 )
 
-[[ "$DETACH" == true ]] && RUN_FLAGS+=(-d) || RUN_FLAGS+=(-it)
+if [[ ${#COPY_FILES[@]} -gt 0 ]]; then
+  RUN_FLAGS+=(-d)
+elif [[ "$DETACH" == true ]]; then
+  RUN_FLAGS+=(-d)
+else
+  RUN_FLAGS+=(-it)
+fi
 
 if [[ -n "$API_KEY" ]]; then
   RUN_FLAGS+=(-e "ANTHROPIC_API_KEY=$API_KEY")
@@ -117,9 +122,11 @@ if [[ -n "$SECURE_ZONE" ]]; then
   RUN_FLAGS+=(-v "$SECURE_ZONE:/Documents/secure_zone")
 fi
 
-for port in "${PORTS[@]}"; do
-  RUN_FLAGS+=(-p "$port")
-done
+if [[ ${#PORTS[@]} -gt 0 ]]; then
+  for port in "${PORTS[@]}"; do
+    RUN_FLAGS+=(-p "$port")
+  done
+fi
 
 # ─── Run ──────────────────────────────────────────────────────────────────────
 echo "Starting $IMAGE:$VERSION ..."
@@ -135,16 +142,18 @@ echo "  Workspace : $WORKDIR → /workspace"
 echo ""
 
 # Start container detached
-docker run "${RUN_FLAGS[@]}" "$IMAGE:$VERSION" "${CMD[@]}"
+docker run "${RUN_FLAGS[@]}" "$IMAGE:$VERSION" "${CMD[@]:-}"
 
 # Copy files if specified
-for copy_spec in "${COPY_FILES[@]}"; do
-  IFS=':' read -r HOST_FILE CONTAINER_PATH <<< "$copy_spec"
-  echo "Copying $HOST_FILE to container:$CONTAINER_PATH ..."
-  docker cp "$HOST_FILE" "$CONTAINER_NAME:$CONTAINER_PATH"
-done
+if [[ ${#COPY_FILES[@]} -gt 0 ]]; then
+  for copy_spec in "${COPY_FILES[@]}"; do
+    IFS=':' read -r HOST_FILE CONTAINER_PATH <<< "$copy_spec"
+    echo "Copying $HOST_FILE to container:$CONTAINER_PATH ..."
+    docker cp "$HOST_FILE" "$CONTAINER_NAME:$CONTAINER_PATH"
+  done
+fi
 
-# Attach if not detached
-if [[ "$DETACH" == false ]]; then
+# Attach if not detached and was started detached for copying
+if [[ "$DETACH" == false && ${#COPY_FILES[@]} -gt 0 ]]; then
   docker attach "$CONTAINER_NAME"
 fi

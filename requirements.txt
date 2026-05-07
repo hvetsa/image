@@ -2,6 +2,7 @@ alembic==1.13.2
 anthropic==0.34.1
 black==24.8.0
 boto3==1.35.5
+boxsdk[jwt]~=4.0.0
 celery==5.4.0
 fastapi==0.112.2
 flake8==7.1.1
